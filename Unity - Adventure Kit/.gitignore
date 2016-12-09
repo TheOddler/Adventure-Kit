@@ -20,6 +20,7 @@ sysinfo.txt
 /*.unityproj
 /*.booproj
 /.vs/
+/.vscode/
 
 #
 # 3rd Party Editor plugins
