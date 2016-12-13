@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Text))]
-public class DebugExitEnter : UIBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class DebugUIExitEnter : UIBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     Text _text;
 
