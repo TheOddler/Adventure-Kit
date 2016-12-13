@@ -106,6 +106,20 @@ public class AdventureInputModule : BaseInputModule
         	ExecuteEvents.Execute(_pointerData.pointerDrag, _pointerData, ExecuteEvents.dragHandler);
 		}
 
+		AutoDeselect();
+
+		if(base.eventSystem.currentSelectedGameObject != null)
+		{
+        	ExecuteEvents.Execute(eventSystem.currentSelectedGameObject, GetBaseEventData(), ExecuteEvents.updateSelectedHandler);
+		}
+
+		// TODO IScrollHandler
+    }
+
+	void AutoDeselect()
+	{
+		var currentOverGO = _pointerData.pointerCurrentRaycast.gameObject;
+
 		if (_autoDeselect.enabled)
 		{
 			if (_pointerData.pointerPress == null) // We're NOT clicking
@@ -138,25 +152,7 @@ public class AdventureInputModule : BaseInputModule
 				}
 			}
 		}
-		/*if (_autoDeselect.enabled && ExecuteEvents.GetEventHandler<ISelectHandler>(currentOverGO) != base.eventSystem.currentSelectedGameObject)
-		{
-			if (!_autoDeselect.onlyWhenNotClicking)
-			{
-				ClearSelection();
-			}
-			else if(_pointerData.pointerPress == null)
-			{
-				ClearSelection();
-			}
-		}*/
-
-		if(base.eventSystem.currentSelectedGameObject != null)
-		{
-        	ExecuteEvents.Execute(eventSystem.currentSelectedGameObject, GetBaseEventData(), ExecuteEvents.updateSelectedHandler);
-		}
-
-		// TODO IScrollHandler
-    }
+	}
 
 	void UpdatePointerDataForMouse()
 	{
