@@ -58,14 +58,15 @@ public class DebugGeneral : MonoBehaviour,
 		sb.Append("Upd Sel: "); sb.Append(_updatingSelected); 	sb.AppendLine();
 		sb.Append("Scoll: "); 	sb.Append(_scoll); 				sb.AppendLine();
 		
-		sb.AppendLine("--------");
+		sb.AppendLine("--- oldest ---");
 
 		int lines = Mathf.Min(SHOWN_EVENTS_COUNT, _eventStack.Count);
 		for (int i = 0; i < lines; ++i)
 		{
-			sb.AppendLine(_eventStack[_eventStack.Count - 1 - i]);
+			sb.AppendLine(_eventStack[_eventStack.Count - lines + i]);
 		}
-		sb.Length--; //remove last newline
+
+		sb.Append("--- NEWEST ---");
 
 		var content = new GUIContent(sb.ToString());
 		var style = new GUIStyle(GUI.skin.textField);
@@ -107,7 +108,7 @@ public class DebugGeneral : MonoBehaviour,
 
     public void OnInitializePotentialDrag(PointerEventData eventData)
     {
-        _eventStack.Add("Initialize Potential Drag");
+        _eventStack.Add("Init Pot Drag");
     }
 
     public void OnMove(AxisEventData eventData)
