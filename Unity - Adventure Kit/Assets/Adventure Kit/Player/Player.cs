@@ -2,9 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour 
+{
+	[SerializeField]
+	float _walkingSpeed = 5f;
 
-	// Use this for initialization
+	CharacterController _controller;
+
+	void Awake() {
+		_controller = GetComponent<CharacterController>();
+	}
+
 	void Start () {
 		LockCursor();
 	}
@@ -15,6 +23,13 @@ public class Player : MonoBehaviour {
 		{
 			LockCursor();
 		}
+
+		Vector3 move = new Vector3(
+			Input.GetAxisRaw("Horizontal"), 
+			0, 
+			Input.GetAxisRaw("Vertical"));
+		
+		_controller.SimpleMove(move * _walkingSpeed);
 	}
 
 	void LockCursor() {
