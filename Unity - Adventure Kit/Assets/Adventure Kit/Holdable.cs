@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Dragable : MonoBehaviour,
+public class Holdable : MonoBehaviour,
     IBeginDragHandler,
     IDragHandler,
     IEndDragHandler
