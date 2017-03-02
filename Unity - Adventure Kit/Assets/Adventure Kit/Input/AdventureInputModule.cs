@@ -6,6 +6,9 @@ public class AdventureInputModule : BaseInputModule
 	//
 	// Settings
 	// ---
+	[SerializeField, TooltipAttribute("In meters from the camera")]
+	float _maximumInteractionDistance = 5;
+
 	[System.Serializable]
 	class AutoDeselectSettings
 	{
@@ -41,6 +44,18 @@ public class AdventureInputModule : BaseInputModule
 
 		// Some useful variables
 		GameObject currentGO = _pointerData.pointerCurrentRaycast.gameObject;
+
+		// Check distance, and if too far, treat it as if nothing was hit
+		if (currentGO != null) {
+			float hitDistance = _pointerData.pointerCurrentRaycast.distance;
+			var distanceLimitOverride = currentGO.GetComponentInParent<OverrideInteractionDistance>();
+			float distanceLimite = distanceLimitOverride == null ? _maximumInteractionDistance : distanceLimitOverride.MaximumInteractionDistance;
+			if (hitDistance > distanceLimite) 
+			{
+				_pointerData.pointerCurrentRaycast = new RaycastResult();
+				currentGO = null;
+			}
+		}
 
 		// Handle the exit/enter for the current pointer data
 		HandlePointerExitAndEnter(_pointerData, currentGO);
